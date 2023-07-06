@@ -1,48 +1,34 @@
 #!/usr/bin/python3
-"""
-    This module accepts a matrix and a divisor and,
-    returns the result of division of each element in a list
-    in the corresponding list index
-
-    Args:
-        matrix (list: int): This must be a list of list of integers or float
-        div (int or float): second argument to function
+""" matrix_divided divides the given matrix
+by the parameter "div", and returns the divided matrix
 """
 
 
 def matrix_divided(matrix, div):
+    """ Divides all elements of a matrix by "div"
+    checks if the entire list is int/float
+    checks if each list in the matrix are the same size
+    checks if "div" is an int/float or is 0
     """
-        Returns a list of list of floating point numbers
-    """
+    mes0 = "matrix must be a matrix (list of lists) of integers/floats"
+    mes1 = "Each row of the matrix must have the same size"
+    res_matrix = []
 
-    err_row_size = "Each row of the matrix must have the same size"
-    type_err = "matrix must be a matrix (list of lists) of integers/floats"
-    err_zero_division = "division by zero"
-
-    if (not matrix):
-        return (None)
-
-    if (not isinstance(matrix, list)):
-        raise TypeError(type_err)
-
-    if (type(div) in [int, float]):
-        if (div == 0):
-            raise ZeroDivisionError(err_zero_division)
-    else:
+    if not isinstance(div, (int, float)):
         raise TypeError("div must be a number")
 
-    i = 0
-    while (i < len(matrix) - 1):
-        if (len(matrix[i]) != len(matrix[i + 1])):
-            raise TypeError(err_row_size)
-        i += 1
+    if div == 0:
+        raise ZeroDivisionError("division by zero")
 
-    for mat in matrix:
-        if (not isinstance(mat, list)):
-            raise TypeError(type_err)
-        for ele in mat:
-            if type(ele) not in [int, float]:
-                raise TypeError(type_err)
+    for lists in matrix:
+        if len(lists) != len(matrix[0]):
+            raise TypeError(mes1)
+        inner_list = []
+        for items in lists:
+            if not isinstance(items, (int, float)):
+                raise TypeError(mes0)
+            else:
+                inner_list.append(round(items / div, 2))
+        res_matrix.append(inner_list)
 
-    new = [[round(ele/div, 2) for ele in mat] for mat in matrix]
-    return (new)
+    return res_matrix
