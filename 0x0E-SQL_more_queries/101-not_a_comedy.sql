@@ -1,4 +1,5 @@
---
+--script that lists all shows
+
 SELECT title FROM tv_shows
 WHERE title NOT IN
 	(
@@ -9,4 +10,4 @@ WHERE title NOT IN
 			ON tvsg.genre_id = tvg.id
 		WHERE tvg.name = "Comedy"
 	)
-ORDER BY title; 
+ORDER BY title;
